@@ -126,7 +126,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #Fill in start
-                    hostname = gethostbyaddr(destAddr)[0]
+                    hostname = hostname
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -148,7 +148,6 @@ def get_route(hostname):
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
-                    #print (" %d   rtt=%.0f ms %s" % (ttl,(timeReceived -t)*1000, addr[0]))
                     df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(types)},
                             ignore_index=True)
                     print(df)
@@ -156,7 +155,6 @@ def get_route(hostname):
                 elif types == 0:
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
-                    #print (" %d   rtt=%.0f ms %s" % (ttl,(timeReceived -timeSent)*1000, addr[0]))
                     df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(types)},
                             ignore_index=True)
                     print(df)
