@@ -106,7 +106,7 @@ def get_route(hostname):
             else:
                 #Fill in start
                 #Fetch the icmp type from the IP packet
-                type = struct.unpack('bbHHh', recvPacket[20:28])
+                types, = struct.unpack('b', recvPacket[20:21])
 
                 #Fill in end
                 try: #try to fetch the hostname
@@ -124,7 +124,7 @@ def get_route(hostname):
                     bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
-                    df.append({'Hop Count': str(MAX_HOPS), 'Try': str(tries), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
+                    df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
                               ignore_index=True)
                     #Fill in end
                 elif types == 3:
@@ -132,19 +132,25 @@ def get_route(hostname):
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
+                    df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
+                              ignore_index=True)
                     #Fill in end
                 elif types == 0:
                     bytes = struct.calcsize("d")
                     timeSent = struct.unpack("d", recvPacket[28:28 + bytes])[0]
+                    df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
+                              ignore_index=True)
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
                     #Fill in end
                 else:
                     #Fill in start
                     #If there is an exception/error to your if statements, you should append that to your df here
+                    df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
+                              ignore_index=True)
                     #Fill in end
                 break
     return df
 
-if __name__ == '__main__':
-    get_route("google.co.il")
+
+get_route("google.co.il")
