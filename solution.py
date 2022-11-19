@@ -125,7 +125,7 @@ def get_route(hostname):
                     bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
-                    df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
+                    df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str('timeout')},
                             ignore_index=True)
                     #Fill in end
                 elif types == 3:
