@@ -111,7 +111,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #Fill in start
-                    hostname = gethostbyaddr(addr[0])[0]
+                    hostname = gethostbyname(hostname)
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -124,7 +124,7 @@ def get_route(hostname):
                     bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
-                    df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
+                    df.append({'Hop Count': str(tries), 'Try': str(ttl), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
                               ignore_index=True)
                     #Fill in end
                 elif types == 3:
@@ -148,7 +148,7 @@ def get_route(hostname):
                     #If there is an exception/error to your if statements, you should append that to your df here
                     df.append({'Hop Count': str(tries), 'Try': str(TRIES), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str(0)},
                               ignore_index=True)
-                    #Fill in end
+                    #Fill in end'''
                 break
     return df
 
