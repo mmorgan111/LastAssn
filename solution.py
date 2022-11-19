@@ -86,7 +86,7 @@ def get_route(hostname):
                     #Fill in start
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
                     df = pd.DataFrame(columns=['Hop Count', 'Try', 'IP', 'Hostname', 'Response Code'])
-                    df = df.append({'Hop Count': str(tries +1), 'Try': str(icmp), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
+                    df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
                             ignore_index=True)
                     print (df)
                     #Fill in end
@@ -96,7 +96,7 @@ def get_route(hostname):
                 if timeLeft <= 0:
                     #Fill in start
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
-                    df.append({'Hop Count': str(tries), 'Try': str(icmp), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
+                    df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str('timeout'), 'Hostname': str('timeout'), 'Response Code': str('timeout')},
                               ignore_index=True)
                     print (df)
                     #Fill in end
@@ -112,7 +112,7 @@ def get_route(hostname):
                 #Fill in end
                 try: #try to fetch the hostname
                     #Fill in start
-                    hostname = gethostbyname(hostname)
+                    hostname = gethostname()
                     #Fill in end
                 except herror:   #if the host does not provide a hostname
                     #Fill in start
@@ -125,7 +125,7 @@ def get_route(hostname):
                     bytes])[0]
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
-                    df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str(destAddr), 'Hostname': str(hostname), 'Response Code': str('timeout')},
+                    df = df.append({'Hop Count': str(ttl), 'Try': str(icmp), 'IP': str(addr[0]), 'Hostname': str(hostname), 'Response Code': str('timeout')},
                             ignore_index=True)
                     #Fill in end
                 elif types == 3:
