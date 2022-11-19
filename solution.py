@@ -48,8 +48,22 @@ def build_packet():
     # Append checksum to the header.
     myChecksum = 0
     ID = 0
+    # Make a dummy header with a 0 checksum
+    # struct -- Interpret strings as packed binary data
     header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1)
     data = struct.pack("d", time.time())
+    # Calculate the checksum on the data and the dummy header.
+    myChecksum = checksum(header + data)
+
+    # Get the right checksum, and put in the header
+
+    if sys.platform == 'darwin':
+        # Convert 16-bit integers from host to network  byte order
+        myChecksum = htons(myChecksum) & 0xffff
+    else:
+        myChecksum = htons(myChecksum)
+
+    header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, 0, myChecksum, ID, 1)
 
     # Don’t send the packet yet , just return the final packet in this function.
     #Fill in end
