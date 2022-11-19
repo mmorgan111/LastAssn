@@ -152,5 +152,5 @@ def get_route(hostname):
                 break
     return df
 
-
-get_route("google.co.il")
+if __name__ == '__main__':
+    get_route("google.co.il")
